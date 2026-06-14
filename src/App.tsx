@@ -77,7 +77,7 @@ export default function App() {
     { label: stage === "story" ? `Story: Ch. ${currentStepIdx + 1} of ${STORY_STEPS.length}` : "Our Story & Apology", active: stage === "story" },
     { label: "Memory Challenge", active: stage === "quiz" },
     { label: "Your Answer 🌸", active: stage === "lock-screen" },
-    { label: "With Love, Always 💜", active: stage === "locked" },
+    { label: "Always with you 💜", active: stage === "locked" },
   ];
 
   const stageTitle = {
@@ -85,7 +85,7 @@ export default function App() {
     "story": `Our Path of Truth: Ch. ${currentStepIdx + 1}`,
     "quiz": "Our Little Bonding Challenge ⚔️",
     "lock-screen": "Do you accept my apology? 🌸",
-    "locked": "With love, always 💜",
+    "locked": "Always with you 💜",
   }[stage];
 
   const stageSubtitle = {
@@ -150,11 +150,10 @@ export default function App() {
             {navItems.map((item, index) => (
               <div
                 key={index}
-                className={`p-2.5 rounded-2xl flex items-center gap-3 border transition-all duration-300 ${
-                  item.active
+                className={`p-2.5 rounded-2xl flex items-center gap-3 border transition-all duration-300 ${item.active
                     ? "bg-purple-100/90 border-purple-200 shadow-xs scale-[1.02]"
                     : "bg-transparent border-transparent text-purple-400"
-                }`}
+                  }`}
               >
                 <span className={`w-2 h-2 rounded-full transition-all shrink-0 ${item.active ? "bg-purple-500 scale-125 animate-ping" : "bg-purple-300"}`} />
                 <span className={`text-xs font-semibold font-sans ${item.active ? "text-purple-950 font-bold" : "text-purple-400/80"}`}>
