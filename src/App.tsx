@@ -250,9 +250,9 @@ export default function App() {
 
       <footer className="max-w-5xl w-full mx-auto px-4 text-center mt-4 relative z-10 select-none pointer-events-none">
         <p className="text-[10px] sm:text-[11px] font-semibold font-sans text-purple-400 leading-tight">
-          Handcrafted with pure care and sincere gratitude.
+          With pure care and sincere gratitude.
           <br />
-          Safeguarding Anjali's smile, peace, and privacy 🌸
+          For Anjali's smile and peace 🌸
         </p>
       </footer>
     </div>
