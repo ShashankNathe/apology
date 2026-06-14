@@ -94,8 +94,8 @@ export default function App() {
     { label: "Opening Mailbox", active: stage === "welcome" },
     { label: stage === "story" ? `Story: Ch. ${currentStepIdx + 1} of ${STORY_STEPS.length}` : "Our Story & Apology", active: stage === "story" },
     { label: "Memory Challenge", active: stage === "quiz" },
-    { label: "Phone Safe-Locker", active: stage === "lock-screen" },
-    { label: "Deleted & Locked", active: stage === "locked" }
+    { label: "Your Answer 🌸", active: stage === "lock-screen" },
+    { label: "With Love, Always 💜", active: stage === "locked" }
   ];
 
   return (
@@ -185,23 +185,23 @@ export default function App() {
                   {stage === "welcome" && "Pori's Mailbox ✉️"}
                   {stage === "story" && `Our Path of Truth: Ch. ${currentStepIdx + 1}`}
                   {stage === "quiz" && "Our Little Bonding Challenge ⚔️"}
-                  {stage === "lock-screen" && "🔒 Personal Locking verification"}
-                  {stage === "locked" && "Safely Sealed Forever! 🤝"}
+                  {stage === "lock-screen" && "Do you accept my apology? 🌸"}
+                  {stage === "locked" && "With love, always 💜"}
                 </h2>
                 <p className="text-xs text-gray-500 font-sans font-medium">
                   {stage === "welcome" && "A safe corner built with respect and warmth."}
                   {stage === "story" && "A stroll down memory lane, with honest words."}
                   {stage === "quiz" && "A funny, cute quiz about details you shared."}
-                  {stage === "lock-screen" && "Confirm your birthdate passcode to safeguard our story."}
-                  {stage === "locked" && "You locked it, so nobody can snoop on us!"}
+                  {stage === "lock-screen" && "Type the number I use on my phone — you know the one."}
+                  {stage === "locked" && "This was only ever meant for you."}
                 </p>
               </div>
               <div className="text-4xl opacity-30 select-none animate-float-gentle text-purple-400">
                 {stage === "welcome" && "✉️"}
                 {stage === "story" && "🧸"}
                 {stage === "quiz" && "🌟"}
-                {stage === "lock-screen" && "🔑"}
-                {stage === "locked" && "🔒"}
+                {stage === "lock-screen" && "🌸"}
+                {stage === "locked" && "🤍"}
               </div>
             </div>
 
