@@ -8,7 +8,7 @@ import PhoneLockScreen from "./components/PhoneLockScreen";
 import SelfDestructedView from "./components/SelfDestructedView";
 import { Heart, Sparkles } from "lucide-react";
 
-const CHATGPT_IMAGE = "/src/assets/images/img1.png";
+const CHATGPT_IMAGE = "https://raw.githubusercontent.com/ShashankNathe/apology/main/src/assets/images/img1.png";
 
 export default function App() {
   const [appStatus, setAppStatus] = useState<AppStatus>({ isLocked: false });
