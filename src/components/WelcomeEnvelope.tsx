@@ -68,7 +68,7 @@ export default function WelcomeEnvelope({ onOpen, welcomeChibiUrl }: WelcomeEnve
             <img
               src={welcomeChibiUrl}
               alt="Cute Welcome Chibi"
-              className="h-44 object-contain rounded-2xl shadow-md border-2 border-purple-200 bg-purple-50"
+              className="h-36 sm:h-44 object-contain rounded-2xl shadow-md border-2 border-purple-200 bg-purple-50"
               referrerPolicy="no-referrer"
             />
           </div>

@@ -28,15 +28,8 @@ export default function App() {
     try {
       const res = await fetch("/api/status");
       const data = await res.json();
-      setAppStatus({
-        isLocked: data.isLocked,
-        readAt: data.readAt,
-        hasCustomPin: data.hasCustomPin,
-      });
-
-      if (data.isLocked) {
-        setStage("locked");
-      }
+      setAppStatus({ isLocked: data.isLocked, readAt: data.readAt, hasCustomPin: data.hasCustomPin });
+      if (data.isLocked) setStage("locked");
     } catch (err) {
       console.error("Error communicating with servers:", err);
     } finally {
@@ -44,9 +37,7 @@ export default function App() {
     }
   };
 
-  useEffect(() => {
-    checkStatus();
-  }, []);
+  useEffect(() => { checkStatus(); }, []);
 
   const handleOpenEnvelope = () => {
     setStage("story");
@@ -55,22 +46,15 @@ export default function App() {
   };
 
   const handleNextPage = () => {
-    if (currentStepIdx + 1 < STORY_STEPS.length) {
-      setCurrentStepIdx((prev) => prev + 1);
-    } else {
-      setStage("quiz");
-    }
+    if (currentStepIdx + 1 < STORY_STEPS.length) setCurrentStepIdx((p) => p + 1);
+    else setStage("quiz");
   };
 
   const handlePrevPage = () => {
-    if (currentStepIdx > 0) {
-      setCurrentStepIdx((prev) => prev - 1);
-    }
+    if (currentStepIdx > 0) setCurrentStepIdx((p) => p - 1);
   };
 
-  const handleQuizComplete = () => {
-    setStage("lock-screen");
-  };
+  const handleQuizComplete = () => setStage("lock-screen");
 
   const handleLockSuccess = () => {
     setStage("locked");
@@ -81,10 +65,8 @@ export default function App() {
     return (
       <div className="flex flex-col items-center justify-center min-h-screen bg-purple-50 text-purple-950 font-sans">
         <div className="text-center animate-bounce">
-          <Heart className="w-12 h-12 text-purple-400 fill-purple-300 animate-heart-pulse mx-auto mb-4" />
-          <p className="text-sm font-semibold tracking-wider font-mono">
-            Unfolding Anjali's Letter... 🌸
-          </p>
+          <Heart className="w-12 h-12 text-purple-400 fill-purple-300 mx-auto mb-4" />
+          <p className="text-sm font-semibold tracking-wider font-mono">Unfolding Anjali's Letter... 🌸</p>
         </div>
       </div>
     );
@@ -95,164 +77,144 @@ export default function App() {
     { label: stage === "story" ? `Story: Ch. ${currentStepIdx + 1} of ${STORY_STEPS.length}` : "Our Story & Apology", active: stage === "story" },
     { label: "Memory Challenge", active: stage === "quiz" },
     { label: "Your Answer 🌸", active: stage === "lock-screen" },
-    { label: "With Love, Always 💜", active: stage === "locked" }
+    { label: "With Love, Always 💜", active: stage === "locked" },
   ];
 
-  return (
-    <div className="min-h-screen bg-[#FDF4FF] flex flex-col justify-between py-4 lg:py-6 relative overflow-x-hidden font-sans">
+  const stageTitle = {
+    "welcome": "Pori's Mailbox ✉️",
+    "story": `Our Path of Truth: Ch. ${currentStepIdx + 1}`,
+    "quiz": "Our Little Bonding Challenge ⚔️",
+    "lock-screen": "Do you accept my apology? 🌸",
+    "locked": "With love, always 💜",
+  }[stage];
 
-      {/* Floating alert bar */}
+  const stageSubtitle = {
+    "welcome": "A safe corner built with respect and warmth.",
+    "story": "A stroll down memory lane, with honest words.",
+    "quiz": "A funny, cute quiz about details you shared.",
+    "lock-screen": "Type the number I use on my phone — you know the one.",
+    "locked": "This was only ever meant for you.",
+  }[stage];
+
+  const stageEmoji = {
+    "welcome": "✉️", "story": "🧸", "quiz": "🌟", "lock-screen": "🌸", "locked": "🤍",
+  }[stage];
+
+  return (
+    <div className="min-h-screen bg-[#FDF4FF] flex flex-col font-sans">
+
+      {/* Notification toast */}
       {showNotification && (
-        <div className="fixed top-8 left-1/2 transform -translate-x-1/2 z-50 bg-purple-950 text-white font-sans font-medium text-xs py-2.5 px-5 rounded-full shadow-xl border border-purple-800 flex items-center gap-2 animate-fade-in">
+        <div className="fixed top-4 left-1/2 -translate-x-1/2 z-50 bg-purple-950 text-white text-xs font-medium py-2.5 px-5 rounded-full shadow-xl border border-purple-800 flex items-center gap-2">
           <Sparkles className="w-3.5 h-3.5 text-purple-300 animate-pulse" />
           <span>{showNotification}</span>
         </div>
       )}
 
-      {/* Header */}
-      <header className="max-w-5xl w-full mx-auto px-4 flex justify-between items-center mb-4 relative z-20">
+      {/* Top header - visible on all sizes */}
+      <header className="w-full px-4 py-3 flex items-center justify-between bg-[#FDF4FF] sticky top-0 z-30 border-b border-purple-100/60">
         <div className="flex items-center gap-2">
-          <Heart className="w-5 h-5 text-purple-500 fill-purple-300 stroke-purple-600 animate-heart-pulse" />
-          <span className="font-semibold text-purple-950 text-base font-sans tracking-tight">
-            Anjali's Safe Locker 💜
-          </span>
+          <Heart className="w-4 h-4 text-purple-500 fill-purple-300 stroke-purple-600" />
+          <span className="font-semibold text-purple-950 text-sm tracking-tight">Anjali's Letter 💜</span>
+        </div>
+        {/* Mobile step dots */}
+        <div className="flex items-center gap-1 lg:hidden">
+          {navItems.map((item, i) => (
+            <div
+              key={i}
+              className={`h-1.5 rounded-full transition-all duration-300 ${item.active ? "w-4 bg-purple-500" : "w-1.5 bg-purple-200"}`}
+            />
+          ))}
         </div>
       </header>
 
-      {/* Main card */}
-      <div className="w-full max-w-5xl mx-auto px-4 py-2 flex-grow flex items-center justify-center relative z-10">
-        <div className="w-full lg:h-[660px] bg-white/80 backdrop-blur-md rounded-[32px] md:rounded-[40px] shadow-2xl border-4 md:border-8 border-purple-100 flex flex-col lg:flex-row overflow-hidden relative">
+      {/* Page body */}
+      <div className="flex-1 flex flex-col lg:flex-row lg:items-center lg:justify-center lg:p-6">
 
-          {/* Left Column */}
-          <aside className="w-full lg:w-1/3 bg-purple-50 p-6 lg:p-8 border-b-2 lg:border-b-0 lg:border-r-2 border-purple-100/50 flex flex-col items-center shrink-0">
-            <div className="w-24 h-24 lg:w-28 lg:h-28 mb-4 lg:mb-5 relative">
-              <div className="w-full h-full bg-purple-200 rounded-full flex items-center justify-center overflow-hidden border-2 border-purple-300 shadow-sm">
-                <div className="w-12 h-14 lg:w-14 lg:h-16 bg-white rounded-t-full relative">
-                  <div className="absolute top-4 left-2 w-1.5 h-1.5 bg-purple-950 rounded-full"></div>
-                  <div className="absolute top-4 right-2 w-1.5 h-1.5 bg-purple-950 rounded-full"></div>
-                  <div className="absolute top-7 left-1/2 -translate-x-1/2 w-4 h-1.5 bg-pink-300 rounded-full opacity-60"></div>
-                </div>
-              </div>
-              <div className="absolute -bottom-1 -right-1 bg-white p-1.5 rounded-full shadow-md text-sm lg:text-base animate-float-gentle">
-                🌸
+        {/* Sidebar - desktop only */}
+        <aside className="hidden lg:flex lg:flex-col lg:w-64 xl:w-72 lg:self-stretch bg-purple-50 border-r border-purple-100/60 p-8 shrink-0 rounded-l-[40px]">
+          <div className="w-24 h-24 mb-5 relative mx-auto">
+            <div className="w-full h-full bg-purple-200 rounded-full flex items-center justify-center overflow-hidden border-2 border-purple-300 shadow-sm">
+              <div className="w-12 h-14 bg-white rounded-t-full relative">
+                <div className="absolute top-4 left-2 w-1.5 h-1.5 bg-purple-950 rounded-full" />
+                <div className="absolute top-4 right-2 w-1.5 h-1.5 bg-purple-950 rounded-full" />
+                <div className="absolute top-7 left-1/2 -translate-x-1/2 w-4 h-1.5 bg-pink-300 rounded-full opacity-60" />
               </div>
             </div>
+            <div className="absolute -bottom-1 -right-1 bg-white p-1.5 rounded-full shadow-md text-base animate-float-gentle">🌸</div>
+          </div>
 
-            <h1 className="text-xl lg:text-2xl font-bold text-purple-950 mb-0.5 font-sans tracking-tight">
-              Anjali 💜
-            </h1>
+          <h1 className="text-2xl font-bold text-purple-950 mb-4 font-sans tracking-tight text-center">Anjali 💜</h1>
 
-            <nav className="w-full space-y-2">
-              {navItems.map((item, index) => (
-                <div
-                  key={index}
-                  className={`p-2.5 rounded-2xl flex items-center gap-3 border transition-all duration-300 ${item.active
-                    ? "bg-purple-100/90 border-purple-200 text-purple-900 shadow-xs scale-[1.02]"
-                    : "bg-transparent border-transparent hover:bg-purple-100/30 text-purple-400"
-                    }`}
-                >
-                  <span className={`w-2 h-2 rounded-full transition-all ${item.active ? "bg-purple-500 scale-125 animate-ping" : "bg-purple-300"}`} />
-                  <span className={`text-xs font-semibold font-sans ${item.active ? "text-purple-950 font-bold" : "text-purple-400/80"}`}>
-                    {item.label}
-                  </span>
-                </div>
-              ))}
-            </nav>
-
-            <div className="mt-6 lg:mt-auto text-center">
-              <div className="text-[10px] uppercase tracking-widest text-purple-300 mb-1.5 font-semibold">
-                Best Friends Since 2025
+          <nav className="w-full space-y-2">
+            {navItems.map((item, index) => (
+              <div
+                key={index}
+                className={`p-2.5 rounded-2xl flex items-center gap-3 border transition-all duration-300 ${
+                  item.active
+                    ? "bg-purple-100/90 border-purple-200 shadow-xs scale-[1.02]"
+                    : "bg-transparent border-transparent text-purple-400"
+                }`}
+              >
+                <span className={`w-2 h-2 rounded-full transition-all shrink-0 ${item.active ? "bg-purple-500 scale-125 animate-ping" : "bg-purple-300"}`} />
+                <span className={`text-xs font-semibold font-sans ${item.active ? "text-purple-950 font-bold" : "text-purple-400/80"}`}>
+                  {item.label}
+                </span>
               </div>
-              <div className="flex gap-2 justify-center text-sm">
-                <span className="animate-heart-pulse inline-block">❤️</span>
-                <span className="animate-float-gentle inline-block">✨</span>
-                <span>☁️</span>
-              </div>
+            ))}
+          </nav>
+
+          <div className="mt-auto text-center pt-6">
+            <div className="text-[10px] uppercase tracking-widest text-purple-300 mb-1.5 font-semibold">Best Friends Since 2025</div>
+            <div className="flex gap-2 justify-center text-sm">
+              <span className="animate-heart-pulse inline-block">❤️</span>
+              <span className="animate-float-gentle inline-block">✨</span>
+              <span>☁️</span>
             </div>
-          </aside>
+          </div>
+        </aside>
 
-          {/* Right Column */}
-          <main className="flex-1 flex flex-col p-6 lg:p-8 bg-white relative overflow-y-auto z-10">
-            <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none z-0">
-              <div className="absolute top-10 left-10 w-24 h-24 bg-purple-300 rounded-full blur-3xl"></div>
-              <div className="absolute bottom-20 right-20 w-40 h-40 bg-pink-200 rounded-full blur-3xl"></div>
-              <div className="absolute top-1/2 left-1/4 w-32 h-32 bg-indigo-200 rounded-full blur-3xl"></div>
+        {/* Main content card */}
+        <main className="flex-1 flex flex-col bg-white lg:rounded-r-[40px] lg:shadow-2xl lg:border lg:border-purple-100 lg:self-stretch lg:overflow-y-auto">
+
+          {/* Stage header */}
+          <div className="px-4 sm:px-6 pt-5 pb-4 border-b border-purple-50 flex justify-between items-start shrink-0">
+            <div>
+              <h2 className="text-lg sm:text-xl lg:text-2xl font-serif italic text-purple-900 mb-0.5 leading-snug">
+                {stageTitle}
+              </h2>
+              <p className="text-xs text-gray-400 font-medium">{stageSubtitle}</p>
             </div>
+            <span className="text-3xl opacity-25 select-none animate-float-gentle ml-3 shrink-0">{stageEmoji}</span>
+          </div>
 
-            <div className="mb-6 flex justify-between items-start border-b border-purple-50/50 pb-4 relative z-10">
-              <div>
-                <h2 className="text-xl lg:text-2xl font-serif italic text-purple-900 mb-1">
-                  {stage === "welcome" && "Pori's Mailbox ✉️"}
-                  {stage === "story" && `Our Path of Truth: Ch. ${currentStepIdx + 1}`}
-                  {stage === "quiz" && "Our Little Bonding Challenge ⚔️"}
-                  {stage === "lock-screen" && "Do you accept my apology? 🌸"}
-                  {stage === "locked" && "With love, always 💜"}
-                </h2>
-                <p className="text-xs text-gray-500 font-sans font-medium">
-                  {stage === "welcome" && "A safe corner built with respect and warmth."}
-                  {stage === "story" && "A stroll down memory lane, with honest words."}
-                  {stage === "quiz" && "A funny, cute quiz about details you shared."}
-                  {stage === "lock-screen" && "Type the number I use on my phone — you know the one."}
-                  {stage === "locked" && "This was only ever meant for you."}
-                </p>
-              </div>
-              <div className="text-4xl opacity-30 select-none animate-float-gentle text-purple-400">
-                {stage === "welcome" && "✉️"}
-                {stage === "story" && "🧸"}
-                {stage === "quiz" && "🌟"}
-                {stage === "lock-screen" && "🌸"}
-                {stage === "locked" && "🤍"}
-              </div>
-            </div>
-
-            <div className="flex-grow flex flex-col justify-center relative z-10">
-              {stage === "welcome" && (
-                <WelcomeEnvelope
-                  onOpen={handleOpenEnvelope}
-                  welcomeChibiUrl={illustrationUrls.welcome}
-                />
-              )}
-
-              {stage === "story" && (
-                <StoryPage
-                  step={STORY_STEPS[currentStepIdx]}
-                  onNext={handleNextPage}
-                  onPrev={handlePrevPage}
-                  isFirst={currentStepIdx === 0}
-                  isLast={currentStepIdx === STORY_STEPS.length - 1}
-                  totalSteps={STORY_STEPS.length}
-                  currentStepIndex={currentStepIdx}
-                  illustrationUrls={illustrationUrls}
-                />
-              )}
-
-              {stage === "quiz" && (
-                <MemoryQuiz
-                  questions={QUIZ_QUESTIONS}
-                  onComplete={handleQuizComplete}
-                />
-              )}
-
-              {stage === "lock-screen" && (
-                <PhoneLockScreen
-                  onSuccess={handleLockSuccess}
-                />
-              )}
-
-              {stage === "locked" && (
-                <SelfDestructedView />
-              )}
-            </div>
-          </main>
-
-        </div>
+          {/* Stage content */}
+          <div className="flex-1 flex flex-col px-4 sm:px-6 py-5 overflow-y-auto">
+            {stage === "welcome" && (
+              <WelcomeEnvelope onOpen={handleOpenEnvelope} welcomeChibiUrl={illustrationUrls.welcome} />
+            )}
+            {stage === "story" && (
+              <StoryPage
+                step={STORY_STEPS[currentStepIdx]}
+                onNext={handleNextPage}
+                onPrev={handlePrevPage}
+                isFirst={currentStepIdx === 0}
+                isLast={currentStepIdx === STORY_STEPS.length - 1}
+                totalSteps={STORY_STEPS.length}
+                currentStepIndex={currentStepIdx}
+                illustrationUrls={illustrationUrls}
+              />
+            )}
+            {stage === "quiz" && <MemoryQuiz questions={QUIZ_QUESTIONS} onComplete={handleQuizComplete} />}
+            {stage === "lock-screen" && <PhoneLockScreen onSuccess={handleLockSuccess} />}
+            {stage === "locked" && <SelfDestructedView />}
+          </div>
+        </main>
       </div>
 
-      <footer className="max-w-5xl w-full mx-auto px-4 text-center mt-4 relative z-10 select-none pointer-events-none">
-        <p className="text-[10px] sm:text-[11px] font-semibold font-sans text-purple-400 leading-tight">
-          With pure care and sincere gratitude.
-          <br />
-          For Anjali's smile and peace 🌸
+      <footer className="text-center py-3 select-none pointer-events-none">
+        <p className="text-[10px] font-semibold text-purple-300">
+          With pure care and sincere gratitude · For Anjali's smile 🌸
         </p>
       </footer>
     </div>

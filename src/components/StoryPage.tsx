@@ -92,7 +92,7 @@ export default function StoryPage({
       </div>
 
       {/* Styled Inner Container */}
-      <div className="space-y-4">
+      <div className="space-y-3 sm:space-y-4">
         {/* Title */}
         <div>
           <span className="text-purple-500 text-xs font-semibold uppercase tracking-wider flex items-center gap-1">
@@ -110,7 +110,7 @@ export default function StoryPage({
             <img
               src={currentImg}
               alt={step.title}
-              className="w-full h-[300px] object-contain rounded-xl transition-all duration-500 group-hover:scale-[1.01]"
+              className="w-full h-[200px] sm:h-[260px] md:h-[300px] object-contain rounded-xl transition-all duration-500 group-hover:scale-[1.01]"
               referrerPolicy="no-referrer"
             />
             <div className="absolute top-2.5 right-2.5 bg-purple-950/80 text-white text-[9px] font-bold tracking-wider uppercase py-0.5 px-2 rounded-full backdrop-blur-sm shadow select-none pointer-events-none">

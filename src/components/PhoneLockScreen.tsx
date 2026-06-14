@@ -83,10 +83,10 @@ export default function PhoneLockScreen({ onSuccess }: PhoneLockScreenProps) {
   };
 
   return (
-    <div className="w-full max-w-sm mx-auto px-4 py-6">
+    <div className="w-full max-w-xs sm:max-w-sm mx-auto px-2 sm:px-4 py-3 sm:py-6">
 
       {/* Sweet intro message */}
-      <div className="text-center mb-5">
+      <div className="text-center mb-4">
         <p className="text-sm text-purple-700 font-medium leading-relaxed">
           If you've read all of this and it means something to you —
           <br />
@@ -96,7 +96,7 @@ export default function PhoneLockScreen({ onSuccess }: PhoneLockScreenProps) {
       </div>
 
       {/* Phone keypad */}
-      <div className={`relative bg-purple-950 text-white rounded-[40px] shadow-2xl border-[10px] border-slate-800 overflow-hidden aspect-[9/19] flex flex-col justify-between p-6 transition-all duration-300 ${isShaking ? "animate-bounce" : ""}`}>
+      <div className={`relative bg-purple-950 text-white rounded-[32px] sm:rounded-[40px] shadow-2xl border-[8px] sm:border-[10px] border-slate-800 overflow-hidden h-[650px] sm:h-auto sm:aspect-[9/19] flex flex-col justify-between p-4 sm:p-6 transition-all duration-300 ${isShaking ? "animate-bounce" : ""}`}>
 
         {/* Notch */}
         <div className="absolute top-2 left-1/2 transform -translate-x-1/2 w-32 h-6 bg-slate-800 rounded-full flex items-center justify-around px-4 select-none">
