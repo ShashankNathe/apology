@@ -193,7 +193,7 @@ export default function App() {
                   {stage === "story" && "A stroll down memory lane, with honest words."}
                   {stage === "quiz" && "A funny, cute quiz about details you shared."}
                   {stage === "lock-screen" && "Confirm your birthdate passcode to safeguard our story."}
-                  {stage === "locked" && "You locked it, so nobody in the office can snoop on us!"}
+                  {stage === "locked" && "You locked it, so nobody can snoop on us!"}
                 </p>
               </div>
               <div className="text-4xl opacity-30 select-none animate-float-gentle text-purple-400">
