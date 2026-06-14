@@ -1,0 +1,6 @@
+{
+  "name": "Apology for Anjali",
+  "description": "An interactive digital storybook and heartfelt apology dedicated to Anjali (Mastarinbai) to explain, apologize, express gratitude, and share sweet memories.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
