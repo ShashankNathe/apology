@@ -81,7 +81,7 @@ export const STORY_STEPS: StoryStep[] = [
     id: 6,
     title: "For You, Anjali",
     tagline: "With all my heart... 🤍",
-    description: "You once made the shyest person in the office feel like they belonged. I hope this is a small start to making you feel the same. 🤍",
+    description: "I know life has been a lot lately — and I'm truly sorry that I added to it instead of making it lighter.\n\nYou once made the shyest person in the office feel like they belonged. I hope this is a small start to making you feel the same. 🤍",
     visualType: "story-promises",
     illustrationId: "welcome",
     cuteDollState: "blushing",
