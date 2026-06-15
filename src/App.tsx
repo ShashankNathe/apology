@@ -111,14 +111,13 @@ export default function App() {
         </div>
       )}
 
-      {/* Top header - visible on all sizes */}
+      {/* Top header */}
       <header className="w-full px-4 py-3 flex items-center justify-between bg-[#FDF4FF] sticky top-0 z-30 border-b border-purple-100/60">
         <div className="flex items-center gap-2">
           <Heart className="w-4 h-4 text-purple-500 fill-purple-300 stroke-purple-600" />
           <span className="font-semibold text-purple-950 text-sm tracking-tight">Anjali's Letter 💜</span>
         </div>
-        {/* Mobile step dots */}
-        <div className="flex items-center gap-1 lg:hidden">
+        <div className="flex items-center gap-1">
           {navItems.map((item, i) => (
             <div
               key={i}
@@ -129,52 +128,10 @@ export default function App() {
       </header>
 
       {/* Page body */}
-      <div className="flex-1 flex flex-col lg:flex-row lg:items-center lg:justify-center lg:p-6">
-
-        {/* Sidebar - desktop only */}
-        <aside className="hidden lg:flex lg:flex-col lg:w-64 xl:w-72 lg:self-stretch bg-purple-50 border-r border-purple-100/60 p-8 shrink-0 rounded-l-[40px]">
-          <div className="w-24 h-24 mb-5 relative mx-auto">
-            <div className="w-full h-full bg-purple-200 rounded-full flex items-center justify-center overflow-hidden border-2 border-purple-300 shadow-sm">
-              <div className="w-12 h-14 bg-white rounded-t-full relative">
-                <div className="absolute top-4 left-2 w-1.5 h-1.5 bg-purple-950 rounded-full" />
-                <div className="absolute top-4 right-2 w-1.5 h-1.5 bg-purple-950 rounded-full" />
-                <div className="absolute top-7 left-1/2 -translate-x-1/2 w-4 h-1.5 bg-pink-300 rounded-full opacity-60" />
-              </div>
-            </div>
-            <div className="absolute -bottom-1 -right-1 bg-white p-1.5 rounded-full shadow-md text-base animate-float-gentle">🌸</div>
-          </div>
-
-          <h1 className="text-2xl font-bold text-purple-950 mb-4 font-sans tracking-tight text-center">Anjali 💜</h1>
-
-          <nav className="w-full space-y-2">
-            {navItems.map((item, index) => (
-              <div
-                key={index}
-                className={`p-2.5 rounded-2xl flex items-center gap-3 border transition-all duration-300 ${item.active
-                    ? "bg-purple-100/90 border-purple-200 shadow-xs scale-[1.02]"
-                    : "bg-transparent border-transparent text-purple-400"
-                  }`}
-              >
-                <span className={`w-2 h-2 rounded-full transition-all shrink-0 ${item.active ? "bg-purple-500 scale-125 animate-ping" : "bg-purple-300"}`} />
-                <span className={`text-xs font-semibold font-sans ${item.active ? "text-purple-950 font-bold" : "text-purple-400/80"}`}>
-                  {item.label}
-                </span>
-              </div>
-            ))}
-          </nav>
-
-          <div className="mt-auto text-center pt-6">
-            <div className="text-[10px] uppercase tracking-widest text-purple-300 mb-1.5 font-semibold">Best Friends Since 2025</div>
-            <div className="flex gap-2 justify-center text-sm">
-              <span className="animate-heart-pulse inline-block">❤️</span>
-              <span className="animate-float-gentle inline-block">✨</span>
-              <span>☁️</span>
-            </div>
-          </div>
-        </aside>
+      <div className="flex-1 flex flex-col items-center justify-start lg:justify-center lg:p-6">
 
         {/* Main content card */}
-        <main className="flex-1 flex flex-col bg-white lg:rounded-r-[40px] lg:shadow-2xl lg:border lg:border-purple-100 lg:self-stretch lg:overflow-y-auto">
+        <main className="w-full max-w-2xl flex flex-col bg-white lg:rounded-[40px] lg:shadow-2xl lg:border lg:border-purple-100 lg:min-h-[600px]">
 
           {/* Stage header */}
           <div className="px-4 sm:px-6 pt-5 pb-4 border-b border-purple-50 flex justify-between items-start shrink-0">

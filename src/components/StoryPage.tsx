@@ -104,20 +104,6 @@ export default function StoryPage({
           </h3>
         </div>
 
-        {/* Interactive Illustration */}
-        {currentImg && (
-          <div className="relative group overflow-hidden rounded-2xl border-2 border-purple-100 bg-purple-50 p-0.5 shadow-sm select-none">
-            <img
-              src={currentImg}
-              alt={step.title}
-              className="w-full h-[200px] sm:h-[260px] md:h-[300px] object-contain rounded-xl transition-all duration-500 group-hover:scale-[1.01]"
-              referrerPolicy="no-referrer"
-            />
-            <div className="absolute top-2.5 right-2.5 bg-purple-950/80 text-white text-[9px] font-bold tracking-wider uppercase py-0.5 px-2 rounded-full backdrop-blur-sm shadow select-none pointer-events-none">
-              Memory Lane 🌸
-            </div>
-          </div>
-        )}
 
         {/* Sincere description content */}
         <div className="bg-purple-50/40 p-4 rounded-2xl border border-purple-100/60 text-gray-700 text-sm font-medium leading-relaxed font-sans whitespace-pre-line text-left max-w-none">
